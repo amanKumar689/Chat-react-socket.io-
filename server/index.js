@@ -1,4 +1,4 @@
-const  {add , getUser} =  require('./user/user.js')
+const  {add , getUser,remUser} =  require('./user/user.js')
 const http = require('http')
 const express =require('express')
 const app = express();
@@ -17,10 +17,9 @@ const io = require("socket.io")(httpServer, {
 io.on('connection',(socket)=>{
 
   socket.on('join',({Room,Name})=>{
-  
+
      room = Room
-    add({id:socket.id,name:Name})
-    
+    add({id:socket.id,name:Name}) 
     socket.join(Room)
     socket.to(Room).emit('someone',Name)
 
@@ -30,20 +29,24 @@ io.on('connection',(socket)=>{
     }) 
 
     socket.on('left',(name)=>{
- 
-       socket.to(Room).emit('left',name)
+  socket.to(Room).emit('left',name)
     })
    
 
   })
   socket.on('disconnect',()=>{
+     
+     console.log('disconnect:',getUser(socket.id));
+     if(getUser(socket.id)!== "")
+     {
+       socket.to(room).emit('left',getUser(socket.id))
 
-
-    socket.to(room).emit('left',getUser(socket.id))
+     }
+    remUser(socket.id)
  
   })
 
 })
 httpServer.listen(5000,()=>{
-  console.log('Listen carefully');
+  // console.log('Listen carefully');
 })

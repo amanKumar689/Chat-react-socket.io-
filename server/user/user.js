@@ -8,14 +8,15 @@ function add(user){
 }
 
 function getUser(id)
-{ 
+{  
+    name = ""
   
      USER.map((val,index)=>{
 
  
         if(val.id == id)
         { 
-            console.log("Found ");
+            console.log(val.id ,' -- ',id );
            name=val.name
        
                 }
@@ -23,5 +24,24 @@ function getUser(id)
      })
 return name
 }
+function remUser(id){
 
-module.exports = {add , getUser}
+    // console.log("running");
+
+ USER = USER.filter((value)=>{
+     if(value.id == id)
+     {  
+         console.log('mathched');
+         console.log(value.name);
+         return false
+     }
+     else
+     {  
+         console.log("not found");
+       return   true
+     }
+ })
+// console.log('after filter out',USER)
+}
+
+module.exports = {add , getUser,remUser}

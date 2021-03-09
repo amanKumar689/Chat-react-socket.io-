@@ -30,8 +30,9 @@ const socket = io(END, {
         setMessage([...message ,{message:`${name} has joined`,IsUser:"joined"} ])
     })  
      socket.on('left',(name)=>{
-        // console.log('lefting');
-     setMessage([...message,{message:`${name} has left`,IsUser:"left"}])
+   
+        setMessage([...message,{message:`${name} has left`,IsUser:"left"}])
+    
         
     })
     
@@ -42,7 +43,8 @@ const socket = io(END, {
         
         return  function cleaup() 
         {  
-             socket.emit('left',name) 
+            //  socket.emit('left',name) 
+            alert('ending')
         }
         
         
@@ -70,7 +72,6 @@ const socket = io(END, {
   
     socket.once('message',(msg)=>{
       
-        console.log("Getting Message:");
         GetMessage(msg , false)
         elem.scrollTop = ( elem.scrollTop + 1000 )
     

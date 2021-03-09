@@ -9,6 +9,15 @@ const Home = () => {
 const [name,setName] = useState('')
 const [room,setRoom] = useState('')
 
+
+useEffect(()=>{ 
+ 
+    setName('')
+    setRoom('') 
+
+   
+},[])
+
 const setData  = (e)=>{
 
      const data = e.target.value;
@@ -24,7 +33,7 @@ const setData  = (e)=>{
    }
 
 }
-   const check = (e) =>{
+   const check = () =>{
        if(room!= "" && name!= "")
        {
            window.location.href = `/room?room=${room}&name=${name}`
@@ -34,18 +43,17 @@ const setData  = (e)=>{
         else
         {
              alert('First Fill up')
-            e.preventDefault();
+            
 
         }
     }
-    
     return (
         <div className="container">
      <div className="join">
  <form>
 
-    <input className="Name" id="name" placeholder="Name" onChange={setData}  />
-    <input className="room" placeholder="room" onChange={setData}  / >
+    <input className="Name" id="name" value={name} placeholder="Name" onChange={setData}  />
+    <input className="room" placeholder="room" value={room} onChange={setData}  / >
 
     <input className="submit" type="button" value="join" onClick={check}/>
    {/* <Link to={`/room?room=${room}&name=${name}`} > */}
